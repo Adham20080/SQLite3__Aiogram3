@@ -23,6 +23,7 @@ class Database:
                 "INSERT INTO users (first_name, last_name, username, user_id) VALUES (?, ?, ?, ?)",
                 (first_n, last_n, user_n, user_id))
 
+    @property
     def get_all_users(self):
         with self.connection:
             return self.cursor.execute("SELECT * FROM users").fetchall()
