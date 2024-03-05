@@ -25,8 +25,20 @@ async def start(message: Message):
 async def users(message: Message):
     if message.from_user.id == Admin:
         for i in db.get_all_users:
-            await message.answer(f"Key ID: <b>{i[0]}</b>\nName: <b>{i[1]}</b>\nSurname: <b>{i[2]}</b>\nUsername: <b>{i[3]}</b>\nUser ID: <b>{i[4]}</b>",
-                                 parse_mode="HTML")
+            await message.answer(
+                f"Key ID: <b>{i[0]}</b>\nName: <b>{i[1]}</b>\nSurname: <b>{i[2]}</b>\nUsername: <b>{i[3]}</b>\nUser ID: <b>{i[4]}</b>",
+                parse_mode="HTML")
+    else:
+        await message.answer("Siz admin emas ekansiz!")
+
+
+@dp.message(F.text == "Chats")
+async def users(message: Message, bot: Bot):
+    if message.from_user.id == Admin:
+        await message.answer("Biror bir matn jo'nating:")
+        txt = message.text
+        for i in db.get_all_users:
+            await bot.send_message(i[4], txt)
 
 
 async def main():
